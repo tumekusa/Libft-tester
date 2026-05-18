@@ -1,12 +1,11 @@
 #include "libft.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 int	main(void)
 {
 	t_list		*lst;
 	t_list		*n;
-	t_list		*tmp;
+	t_list		nodes[5];
 	int			i;
 	int			ok;
 	int			ko;
@@ -47,8 +46,10 @@ int	main(void)
 	i = 1;
 	while (i <= 5)
 	{
-		n = ft_lstnew(NULL);
-		ft_lstadd_front(&lst, n);
+		n = &nodes[i - 1];
+		n->content = NULL;
+		n->next = lst;
+		lst = n;
 		pass = (ft_lstsize(lst) == i);
 		if (pass)
 		{
@@ -65,13 +66,6 @@ int	main(void)
 		printf("[%d] %d ノード追加後 lstsize  expect=%d  ft=%d  %s%s%s\n",
 			i + 1, i, i, ft_lstsize(lst), color, label, reset);
 		i++;
-	}
-
-	while (lst != NULL)
-	{
-		tmp = lst->next;
-		free(lst);
-		lst = tmp;
 	}
 
 	printf("%s----- summary: %s%d OK%s / %s%d KO%s%s -----%s\n",

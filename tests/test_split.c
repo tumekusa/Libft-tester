@@ -54,11 +54,11 @@ int	main(void)
 	ko = 0;
 	printf("%s========= test_split =========%s\n", cyan, reset);
 
-	r = ft_split("hello world foo", ' ');
+	r = ft_split("ls cd pwd", ' ');
 	pass = (r != NULL && count_words(r) == 3
-			&& strcmp(r[0], "hello") == 0
-			&& strcmp(r[1], "world") == 0
-			&& strcmp(r[2], "foo") == 0);
+			&& strcmp(r[0], "ls") == 0
+			&& strcmp(r[1], "cd") == 0
+			&& strcmp(r[2], "pwd") == 0);
 	if (pass)
 	{
 		color = green;
@@ -71,7 +71,7 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] split(\"hello world foo\", ' ')  expect=3 単語 hello/world/foo  ft=%d 単語  %s%s%s\n",
+	printf("[%d] split(\"ls cd pwd\", ' ')  expect=3 単語 ls/cd/pwd  ft=%d 単語  %s%s%s\n",
 		1, count_words(r), color, label, reset);
 	free_split(r);
 
@@ -96,8 +96,8 @@ int	main(void)
 		2, count_words(r), color, label, reset);
 	free_split(r);
 
-	r = ft_split(",,hello,,", ',');
-	pass = (r != NULL && count_words(r) == 1 && strcmp(r[0], "hello") == 0);
+	r = ft_split(",,bash,,", ',');
+	pass = (r != NULL && count_words(r) == 1 && strcmp(r[0], "bash") == 0);
 	if (pass)
 	{
 		color = green;
@@ -110,7 +110,7 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] split(\",,hello,,\", ',') (先頭末尾区切り)  expect=1 単語 hello  ft=%d 単語  %s%s%s\n",
+	printf("[%d] split(\",,bash,,\", ',') (先頭末尾区切り)  expect=1 単語 bash  ft=%d 単語  %s%s%s\n",
 		3, count_words(r), color, label, reset);
 	free_split(r);
 

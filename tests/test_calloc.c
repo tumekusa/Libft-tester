@@ -31,7 +31,7 @@ int	main(void)
 	p = ft_calloc(10, sizeof(char));
 	all_zero = 1;
 	i = 0;
-	while (i < 10)
+	while (p != NULL && i < 10)
 	{
 		if (p[i] != 0)
 			all_zero = 0;

@@ -25,8 +25,8 @@ int	main(void)
 	ko = 0;
 	printf("%s========= test_substr =========%s\n", cyan, reset);
 
-	r = ft_substr("hello", 0, 3);
-	pass = (r != NULL && strcmp(r, "hel") == 0);
+	r = ft_substr("0xDEADBEEF", 2, 8);
+	pass = (r != NULL && strcmp(r, "DEADBEEF") == 0);
 	if (pass)
 	{
 		color = green;
@@ -39,12 +39,12 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] substr(\"hello\", 0, 3)  expect=\"hel\"  ft=\"%s\"  %s%s%s\n",
+	printf("[%d] substr(\"0xDEADBEEF\", 2, 8)  expect=\"DEADBEEF\"  ft=\"%s\"  %s%s%s\n",
 		1, r ? r : "(NULL)", color, label, reset);
 	free(r);
 
-	r = ft_substr("hello", 1, 3);
-	pass = (r != NULL && strcmp(r, "ell") == 0);
+	r = ft_substr("0xCAFEBABE", 2, 4);
+	pass = (r != NULL && strcmp(r, "CAFE") == 0);
 	if (pass)
 	{
 		color = green;
@@ -57,12 +57,12 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] substr(\"hello\", 1, 3)  expect=\"ell\"  ft=\"%s\"  %s%s%s\n",
+	printf("[%d] substr(\"0xCAFEBABE\", 2, 4)  expect=\"CAFE\"  ft=\"%s\"  %s%s%s\n",
 		2, r ? r : "(NULL)", color, label, reset);
 	free(r);
 
-	r = ft_substr("hello", 0, 100);
-	pass = (r != NULL && strcmp(r, "hello") == 0);
+	r = ft_substr("0xFEEDFACE", 0, 100);
+	pass = (r != NULL && strcmp(r, "0xFEEDFACE") == 0);
 	if (pass)
 	{
 		color = green;
@@ -75,11 +75,11 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] substr(\"hello\", 0, 100) (len 過大)  expect=\"hello\"  ft=\"%s\"  %s%s%s\n",
+	printf("[%d] substr(\"0xFEEDFACE\", 0, 100) (len 過大)  expect=\"0xFEEDFACE\"  ft=\"%s\"  %s%s%s\n",
 		3, r ? r : "(NULL)", color, label, reset);
 	free(r);
 
-	r = ft_substr("hello", 5, 3);
+	r = ft_substr("0xBADCAFE", 9, 3);
 	pass = (r != NULL && strcmp(r, "") == 0);
 	if (pass)
 	{
@@ -93,11 +93,11 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] substr(\"hello\", 5, 3) (start=長さ)  expect=\"\"  ft=\"%s\"  %s%s%s\n",
+	printf("[%d] substr(\"0xBADCAFE\", 9, 3) (start=長さ)  expect=\"\"  ft=\"%s\"  %s%s%s\n",
 		4, r ? r : "(NULL)", color, label, reset);
 	free(r);
 
-	r = ft_substr("hello", 100, 3);
+	r = ft_substr("0xBABEFACE", 100, 3);
 	pass = (r != NULL && strcmp(r, "") == 0);
 	if (pass)
 	{
@@ -111,11 +111,11 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] substr(\"hello\", 100, 3) (start 過大)  expect=\"\"  ft=\"%s\"  %s%s%s\n",
+	printf("[%d] substr(\"0xBABEFACE\", 100, 3) (start 過大)  expect=\"\"  ft=\"%s\"  %s%s%s\n",
 		5, r ? r : "(NULL)", color, label, reset);
 	free(r);
 
-	r = ft_substr("hello", 1, 0);
+	r = ft_substr("0xDEADC0DE", 5, 0);
 	pass = (r != NULL && strcmp(r, "") == 0);
 	if (pass)
 	{
@@ -129,7 +129,7 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] substr(\"hello\", 1, 0) (len=0)  expect=\"\"  ft=\"%s\"  %s%s%s\n",
+	printf("[%d] substr(\"0xDEADC0DE\", 5, 0) (len=0)  expect=\"\"  ft=\"%s\"  %s%s%s\n",
 		6, r ? r : "(NULL)", color, label, reset);
 	free(r);
 

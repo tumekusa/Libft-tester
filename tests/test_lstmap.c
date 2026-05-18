@@ -38,6 +38,7 @@ static void	free_str(void *p)
 
 int	main(void)
 {
+	t_list		nodes[5];
 	t_list		*src_list;
 	t_list		*dst_list;
 	t_list		*a;
@@ -63,18 +64,24 @@ int	main(void)
 	ko = 0;
 	printf("%s========= test_lstmap =========%s\n", cyan, reset);
 
-	a = ft_lstnew("hello");
-	b = ft_lstnew("world");
-	c = ft_lstnew("foo");
+	a = &nodes[0];
+	b = &nodes[1];
+	c = &nodes[2];
+	a->content = "stdin";
+	b->content = "stdout";
+	c->content = "stderr";
+	c->next = NULL;
 	a->next = b;
 	b->next = c;
 	src_list = a;
 
 	dst_list = ft_lstmap(src_list, content_to_upper, free_str);
 	pass = (dst_list != NULL
-			&& strcmp((char *)dst_list->content, "HELLO") == 0
-			&& strcmp((char *)dst_list->next->content, "WORLD") == 0
-			&& strcmp((char *)dst_list->next->next->content, "FOO") == 0
+			&& dst_list->next != NULL
+			&& dst_list->next->next != NULL
+			&& strcmp((char *)dst_list->content, "STDIN") == 0
+			&& strcmp((char *)dst_list->next->content, "STDOUT") == 0
+			&& strcmp((char *)dst_list->next->next->content, "STDERR") == 0
 			&& dst_list->next->next->next == NULL);
 	if (pass)
 	{
@@ -88,11 +95,13 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] lstmap(src, to_upper, free_str)  expect=\"HELLO\"/\"WORLD\"/\"FOO\"  %s%s%s\n",
+	printf("[%d] lstmap(src, to_upper, free_str)  expect=\"STDIN\"/\"STDOUT\"/\"STDERR\"  %s%s%s\n",
 		1, color, label, reset);
 
-	pass = (strcmp((char *)src_list->content, "hello") == 0
-			&& strcmp((char *)src_list->next->content, "world") == 0);
+	pass = (src_list != NULL
+			&& src_list->next != NULL
+			&& strcmp((char *)src_list->content, "stdin") == 0
+			&& strcmp((char *)src_list->next->content, "stdout") == 0);
 	if (pass)
 	{
 		color = green;
@@ -105,7 +114,7 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] src 不変か  expect=\"hello\"/\"world\" 維持  ft[0]=\"%s\"  %s%s%s\n",
+	printf("[%d] src 不変か  expect=\"stdin\"/\"stdout\" 維持  ft[0]=\"%s\"  %s%s%s\n",
 		2, (char *)src_list->content, color, label, reset);
 
 	while (dst_list != NULL)
@@ -115,9 +124,6 @@ int	main(void)
 		free(dst_list);
 		dst_list = tmp;
 	}
-	free(a);
-	free(b);
-	free(c);
 
 	dst_list = ft_lstmap(NULL, content_to_upper, free_str);
 	pass = (dst_list == NULL);
@@ -136,7 +142,9 @@ int	main(void)
 	printf("[%d] lstmap(NULL, ...)  expect=NULL  ft=%p  %s%s%s\n",
 		3, (void *)dst_list, color, label, reset);
 
-	a = ft_lstnew("x");
+	a = &nodes[3];
+	a->content = "kernel";
+	a->next = NULL;
 	dst_list = ft_lstmap(a, NULL, free_str);
 	pass = (dst_list == NULL);
 	if (pass)
@@ -153,9 +161,10 @@ int	main(void)
 	}
 	printf("[%d] lstmap(lst, NULL, free_str) (NULL チェックする実装の場合)  expect=NULL  ft=%p  %s%s%s\n",
 		4, (void *)dst_list, color, label, reset);
-	free(a);
 
-	a = ft_lstnew("x");
+	a = &nodes[4];
+	a->content = "daemon";
+	a->next = NULL;
 	dst_list = ft_lstmap(a, content_to_upper, NULL);
 	pass = (dst_list == NULL);
 	if (pass)
@@ -172,7 +181,6 @@ int	main(void)
 	}
 	printf("[%d] lstmap(lst, to_upper, NULL)  expect=NULL  ft=%p  %s%s%s\n",
 		5, (void *)dst_list, color, label, reset);
-	free(a);
 
 	printf("%s----- summary: %s%d OK%s / %s%d KO%s%s -----%s\n",
 		cyan, green, ok, reset, red, ko, reset, cyan, reset);

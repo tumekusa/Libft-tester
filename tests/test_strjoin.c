@@ -25,8 +25,8 @@ int	main(void)
 	ko = 0;
 	printf("%s========= test_strjoin =========%s\n", cyan, reset);
 
-	r = ft_strjoin("hello", " world");
-	pass = (r != NULL && strcmp(r, "hello world") == 0);
+	r = ft_strjoin("Hello, ", "World!");
+	pass = (r != NULL && strcmp(r, "Hello, World!") == 0);
 	if (pass)
 	{
 		color = green;
@@ -39,12 +39,12 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] strjoin(\"hello\", \" world\")  expect=\"hello world\"  ft=\"%s\"  %s%s%s\n",
+	printf("[%d] strjoin(\"Hello, \", \"World!\")  expect=\"Hello, World!\"  ft=\"%s\"  %s%s%s\n",
 		1, r ? r : "(NULL)", color, label, reset);
 	free(r);
 
-	r = ft_strjoin("", "foo");
-	pass = (r != NULL && strcmp(r, "foo") == 0);
+	r = ft_strjoin("", "shell");
+	pass = (r != NULL && strcmp(r, "shell") == 0);
 	if (pass)
 	{
 		color = green;
@@ -57,12 +57,12 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] strjoin(\"\", \"foo\") (空 s1)  expect=\"foo\"  ft=\"%s\"  %s%s%s\n",
+	printf("[%d] strjoin(\"\", \"shell\") (空 s1)  expect=\"shell\"  ft=\"%s\"  %s%s%s\n",
 		2, r ? r : "(NULL)", color, label, reset);
 	free(r);
 
-	r = ft_strjoin("foo", "");
-	pass = (r != NULL && strcmp(r, "foo") == 0);
+	r = ft_strjoin("shell ", "script");
+	pass = (r != NULL && strcmp(r, "shell script") == 0);
 	if (pass)
 	{
 		color = green;
@@ -75,7 +75,7 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] strjoin(\"foo\", \"\") (空 s2)  expect=\"foo\"  ft=\"%s\"  %s%s%s\n",
+	printf("[%d] strjoin(\"shell \", \"script\")  expect=\"shell script\"  ft=\"%s\"  %s%s%s\n",
 		3, r ? r : "(NULL)", color, label, reset);
 	free(r);
 
@@ -97,7 +97,7 @@ int	main(void)
 		4, r ? r : "(NULL)", color, label, reset);
 	free(r);
 
-	r = ft_strjoin(NULL, "x");
+	r = ft_strjoin(NULL, "kernel");
 	pass = (r == NULL);
 	if (pass)
 	{
@@ -111,10 +111,10 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] strjoin(NULL, \"x\") (NULL を弾く実装)  expect=NULL  ft=%p  %s%s%s\n",
+	printf("[%d] strjoin(NULL, \"kernel\") (NULL を弾く実装)  expect=NULL  ft=%p  %s%s%s\n",
 		5, (void *)r, color, label, reset);
 
-	r = ft_strjoin("x", NULL);
+	r = ft_strjoin("daemon", NULL);
 	pass = (r == NULL);
 	if (pass)
 	{
@@ -128,7 +128,7 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] strjoin(\"x\", NULL)  expect=NULL  ft=%p  %s%s%s\n",
+	printf("[%d] strjoin(\"daemon\", NULL)  expect=NULL  ft=%p  %s%s%s\n",
 		6, (void *)r, color, label, reset);
 
 	printf("%s----- summary: %s%d OK%s / %s%d KO%s%s -----%s\n",

@@ -1,6 +1,5 @@
 #include "libft.h"
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 /*
@@ -18,6 +17,7 @@ static void	append_char(void *p)
 
 int	main(void)
 {
+	t_list		nodes[3];
 	t_list		*lst;
 	t_list		*a;
 	t_list		*b;
@@ -44,9 +44,13 @@ int	main(void)
 	ko = 0;
 	printf("%s========= test_lstiter =========%s\n", cyan, reset);
 
-	a = ft_lstnew(&ca);
-	b = ft_lstnew(&cb);
-	c = ft_lstnew(&cc);
+	a = &nodes[0];
+	b = &nodes[1];
+	c = &nodes[2];
+	a->content = &ca;
+	b->content = &cb;
+	c->content = &cc;
+	c->next = NULL;
 	a->next = b;
 	b->next = c;
 	lst = a;
@@ -106,10 +110,6 @@ int	main(void)
 	}
 	printf("[%d] lstiter(lst, NULL) (NULL チェックする実装の場合)  expect=f 呼ばれず+落ちない  calls=%d  %s%s%s\n",
 		3, g_buf_pos, color, label, reset);
-
-	free(a);
-	free(b);
-	free(c);
 
 	printf("%s----- summary: %s%d OK%s / %s%d KO%s%s -----%s\n",
 		cyan, green, ok, reset, red, ko, reset, cyan, reset);

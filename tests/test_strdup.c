@@ -81,8 +81,8 @@ int	main(void)
 		3, d ? d : "(NULL)", src, color, label, reset);
 	free(d);
 
-	d = ft_strdup("the quick brown fox");
-	pass = (d != NULL && strcmp(d, "the quick brown fox") == 0);
+	d = ft_strdup("There are 10 types of people in this world");
+	pass = (d != NULL && strcmp(d, "There are 10 types of people in this world") == 0);
 	if (pass)
 	{
 		color = green;
@@ -95,7 +95,7 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] strdup(\"the quick brown fox\")  expect=同文字列  ft=\"%s\"  %s%s%s\n",
+	printf("[%d] strdup(\"There are 10 types of people...\")  expect=同文字列  ft=\"%s\"  %s%s%s\n",
 		4, d ? d : "(NULL)", color, label, reset);
 	free(d);
 

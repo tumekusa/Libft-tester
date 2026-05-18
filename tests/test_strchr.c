@@ -5,6 +5,7 @@
 int	main(void)
 {
 	const char	*s = "hello, world!";
+	const char	*empty = "";
 	int			ok;
 	int			ko;
 	int			pass;
@@ -88,7 +89,7 @@ int	main(void)
 	printf("[%d] strchr(s, '\\0')  expect=終端 (s+13)  ft=%p libc=%p  %s%s%s\n",
 		4, (void *)ft_strchr(s, '\0'), (void *)strchr(s, '\0'), color, label, reset);
 
-	pass = (ft_strchr("", '\0') != NULL && strchr("", '\0') != NULL);
+	pass = (ft_strchr(empty, '\0') == empty && strchr(empty, '\0') == empty);
 	if (pass)
 	{
 		color = green;
@@ -101,8 +102,9 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] strchr(\"\", '\\0')  expect=非NULL  ft=%p libc=%p  %s%s%s\n",
-		5, (void *)ft_strchr("", '\0'), (void *)strchr("", '\0'), color, label, reset);
+	printf("[%d] strchr(\"\", '\\0')  expect=empty 自身  ft=%p libc=%p empty=%p  %s%s%s\n",
+		5, (void *)ft_strchr(empty, '\0'), (void *)strchr(empty, '\0'), (void *)empty,
+		color, label, reset);
 
 	pass = (ft_strchr(s, 256 + 'h') == strchr(s, 256 + 'h'));
 	if (pass)

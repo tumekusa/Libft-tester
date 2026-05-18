@@ -6,6 +6,7 @@ int	main(void)
 {
 	char		buf1[10];
 	char		buf2[10];
+	void		*r;
 	int			ok;
 	int			ko;
 	int			pass;
@@ -27,7 +28,7 @@ int	main(void)
 
 	memcpy(buf1, "ABCDEFGHIJ", 10);
 	memcpy(buf2, "ABCDEFGHIJ", 10);
-	ft_memmove(buf1 + 5, buf1, 5);
+	r = ft_memmove(buf1 + 5, buf1, 5);
 	memmove(buf2 + 5, buf2, 5);
 	pass = (memcmp(buf1, buf2, 10) == 0);
 	if (pass)
@@ -42,12 +43,12 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] memmove(buf+5, buf, 5) (重複なし)  expect=libc と一致  ft=\"%.10s\"  %s%s%s\n",
-		1, buf1, color, label, reset);
+	printf("[%d] memmove(buf+5, buf, 5) (重複なし)  expect=libc と一致  ft=\"%.10s\" r=%p  %s%s%s\n",
+		1, buf1, r, color, label, reset);
 
 	memcpy(buf1, "0123456789", 10);
 	memcpy(buf2, "0123456789", 10);
-	ft_memmove(buf1 + 2, buf1, 5);
+	r = ft_memmove(buf1 + 2, buf1, 5);
 	memmove(buf2 + 2, buf2, 5);
 	pass = (memcmp(buf1, buf2, 10) == 0);
 	if (pass)
@@ -62,12 +63,12 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] memmove(buf+2, buf, 5) (前方 overlap)  expect=\"0101234789\"  ft=\"%.10s\"  %s%s%s\n",
-		2, buf1, color, label, reset);
+	printf("[%d] memmove(buf+2, buf, 5) (前方 overlap)  expect=\"0101234789\"  ft=\"%.10s\" r=%p  %s%s%s\n",
+		2, buf1, r, color, label, reset);
 
 	memcpy(buf1, "0123456789", 10);
 	memcpy(buf2, "0123456789", 10);
-	ft_memmove(buf1, buf1 + 2, 5);
+	r = ft_memmove(buf1, buf1 + 2, 5);
 	memmove(buf2, buf2 + 2, 5);
 	pass = (memcmp(buf1, buf2, 10) == 0);
 	if (pass)
@@ -82,12 +83,12 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] memmove(buf, buf+2, 5) (後方 overlap)  expect=\"2345656789\"  ft=\"%.10s\"  %s%s%s\n",
-		3, buf1, color, label, reset);
+	printf("[%d] memmove(buf, buf+2, 5) (後方 overlap)  expect=\"2345656789\"  ft=\"%.10s\" r=%p  %s%s%s\n",
+		3, buf1, r, color, label, reset);
 
 	memcpy(buf1, "0123456789", 10);
 	memcpy(buf2, "0123456789", 10);
-	ft_memmove(buf1 + 3, buf1, 0);
+	r = ft_memmove(buf1 + 3, buf1, 0);
 	pass = (memcmp(buf1, buf2, 10) == 0);
 	if (pass)
 	{
@@ -101,10 +102,11 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] memmove(buf+3, buf, 0)  expect=変化なし  %s%s%s\n",
-		4, color, label, reset);
+	printf("[%d] memmove(buf+3, buf, 0)  expect=変化なし  r=%p  %s%s%s\n",
+		4, r, color, label, reset);
 
-	pass = (ft_memmove(buf1, buf2, 5) == buf1);
+	r = ft_memmove(buf1, buf2, 5);
+	pass = (r == buf1);
 	if (pass)
 	{
 		color = green;
@@ -118,7 +120,7 @@ int	main(void)
 		ko++;
 	}
 	printf("[%d] 戻り値  expect=dst 自身  ft=%p expect=%p  %s%s%s\n",
-		5, ft_memmove(buf1, buf2, 5), (void *)buf1, color, label, reset);
+		5, r, (void *)buf1, color, label, reset);
 
 	printf("%s----- summary: %s%d OK%s / %s%d KO%s%s -----%s\n",
 		cyan, green, ok, reset, red, ko, reset, cyan, reset);

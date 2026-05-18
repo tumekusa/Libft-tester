@@ -1,9 +1,9 @@
 #include "libft.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 int	main(void)
 {
+	t_list		nodes[3];
 	t_list		*lst;
 	t_list		*a;
 	t_list		*b;
@@ -28,9 +28,15 @@ int	main(void)
 	printf("%s========= test_lstadd_front =========%s\n", cyan, reset);
 
 	lst = NULL;
-	a = ft_lstnew("A");
-	b = ft_lstnew("B");
-	c = ft_lstnew("C");
+	a = &nodes[0];
+	b = &nodes[1];
+	c = &nodes[2];
+	a->content = "A";
+	a->next = NULL;
+	b->content = "B";
+	b->next = NULL;
+	c->content = "C";
+	c->next = NULL;
 
 	ft_lstadd_front(&lst, a);
 	pass = (lst == a && lst->next == NULL);
@@ -99,10 +105,6 @@ int	main(void)
 	}
 	printf("[%d] NULL new (NULL を弾く実装)  expect=lst 不変  lst=%p (c=%p)  %s%s%s\n",
 		4, (void *)lst, (void *)c, color, label, reset);
-
-	free(a);
-	free(b);
-	free(c);
 
 	printf("%s----- summary: %s%d OK%s / %s%d KO%s%s -----%s\n",
 		cyan, green, ok, reset, red, ko, reset, cyan, reset);

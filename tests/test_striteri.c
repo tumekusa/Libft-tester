@@ -18,7 +18,7 @@ static void	add_index_at(unsigned int i, char *c)
 
 int	main(void)
 {
-	char		buf1[] = "hello";
+	char		buf1[] = "recursion";
 	char		buf2[] = "abc";
 	char		buf3[] = "";
 	int			ok;
@@ -41,7 +41,7 @@ int	main(void)
 	printf("%s========= test_striteri =========%s\n", cyan, reset);
 
 	ft_striteri(buf1, upper_at);
-	pass = (strcmp(buf1, "HELLO") == 0);
+	pass = (strcmp(buf1, "RECURSION") == 0);
 	if (pass)
 	{
 		color = green;
@@ -54,7 +54,7 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] striteri(\"hello\", upper_at)  expect=\"HELLO\"  ft=\"%s\"  %s%s%s\n",
+	printf("[%d] striteri(\"recursion\", upper_at)  expect=\"RECURSION\"  ft=\"%s\"  %s%s%s\n",
 		1, buf1, color, label, reset);
 
 	ft_striteri(buf2, add_index_at);

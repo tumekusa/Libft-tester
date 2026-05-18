@@ -6,6 +6,7 @@ int	main(void)
 {
 	char		buf1[16];
 	char		buf2[16];
+	void		*r;
 	int			ok;
 	int			ko;
 	int			pass;
@@ -27,7 +28,7 @@ int	main(void)
 
 	memset(buf1, 0, 16);
 	memset(buf2, 0, 16);
-	ft_memset(buf1, 'A', 5);
+	r = ft_memset(buf1, 'A', 5);
 	memset(buf2, 'A', 5);
 	pass = (memcmp(buf1, buf2, 16) == 0);
 	if (pass)
@@ -42,12 +43,12 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] memset(buf, 'A', 5)  expect=libc と一致  ft=\"%.5s\"  %s%s%s\n",
-		1, buf1, color, label, reset);
+	printf("[%d] memset(buf, 'A', 5)  expect=libc と一致  ft=\"%.5s\" r=%p  %s%s%s\n",
+		1, buf1, r, color, label, reset);
 
 	memset(buf1, 0, 16);
 	memset(buf2, 0, 16);
-	ft_memset(buf1, 'X', 0);
+	r = ft_memset(buf1, 'X', 0);
 	pass = (memcmp(buf1, buf2, 16) == 0);
 	if (pass)
 	{
@@ -61,12 +62,12 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] memset(buf, 'X', 0)  expect=変化なし  buf[0]=%d  %s%s%s\n",
-		2, buf1[0], color, label, reset);
+	printf("[%d] memset(buf, 'X', 0)  expect=変化なし  buf[0]=%d r=%p  %s%s%s\n",
+		2, buf1[0], r, color, label, reset);
 
 	memset(buf1, 0, 16);
 	memset(buf2, 0, 16);
-	ft_memset(buf1, 256 + 'A', 4);
+	r = ft_memset(buf1, 256 + 'A', 4);
 	memset(buf2, 'A', 4);
 	pass = (memcmp(buf1, buf2, 4) == 0);
 	if (pass)
@@ -81,10 +82,11 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] memset(buf, 256+'A', 4) (高位ビット切り捨て)  expect=\"AAAA\"  ft=\"%.4s\"  %s%s%s\n",
-		3, buf1, color, label, reset);
+	printf("[%d] memset(buf, 256+'A', 4) (高位ビット切り捨て)  expect=\"AAAA\"  ft=\"%.4s\" r=%p  %s%s%s\n",
+		3, buf1, r, color, label, reset);
 
-	pass = (ft_memset(buf1, 'Z', 1) == buf1);
+	r = ft_memset(buf1, 'Z', 1);
+	pass = (r == buf1);
 	if (pass)
 	{
 		color = green;
@@ -98,7 +100,7 @@ int	main(void)
 		ko++;
 	}
 	printf("[%d] 戻り値  expect=buf 自身  ft=%p expect=%p  %s%s%s\n",
-		4, (void *)ft_memset(buf1, 'Z', 1), (void *)buf1, color, label, reset);
+		4, r, (void *)buf1, color, label, reset);
 
 	printf("%s----- summary: %s%d OK%s / %s%d KO%s%s -----%s\n",
 		cyan, green, ok, reset, red, ko, reset, cyan, reset);

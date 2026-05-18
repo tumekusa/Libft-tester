@@ -61,9 +61,20 @@ test_%: tests/test_%.c $(LIBFT)
 	$(CC) $(CFLAGS) $(INCLUDES) tests/test_$*.c $(LIBFT) -o $@
 
 # 全テストを順に実行。テスト名見出しは各バイナリの冒頭で出る。
-# バイナリは KO がゼロなら exit 0、1 つでも KO があれば exit 1 を返す。
+# 各バイナリは KO がゼロなら exit 0、1 つでも KO があれば exit 1 を返す。
+# 全テスト pass のときだけ末尾に ALL CLEAR バナーを表示。
+# `make test` 自体の戻り値も、全 pass なら 0、どれか KO/crash なら 1 を返す。
 test: all
-	@for t in $(TESTS); do ./$$t; done
+	@result=0; \
+	for t in $(TESTS); do \
+		./$$t || result=1; \
+	done; \
+	if [ $$result -eq 0 ]; then \
+		printf '\n\033[36m============================\033[0m\n'; \
+		printf '\033[36m=== ALL CLEAR (43 / 43) ===\033[0m\n'; \
+		printf '\033[36m============================\033[0m\n'; \
+	fi; \
+	exit $$result
 
 clean:
 	rm -f $(TESTS)

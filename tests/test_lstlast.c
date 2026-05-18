@@ -1,9 +1,9 @@
 #include "libft.h"
 #include <stdio.h>
-#include <stdlib.h>
 
 int	main(void)
 {
+	t_list		nodes[4];
 	t_list		*a;
 	t_list		*b;
 	t_list		*c;
@@ -43,7 +43,9 @@ int	main(void)
 	printf("[%d] lstlast(NULL)  expect=NULL  ft=%p  %s%s%s\n",
 		1, (void *)ft_lstlast(NULL), color, label, reset);
 
-	solo = ft_lstnew("solo");
+	solo = &nodes[0];
+	solo->content = "solo";
+	solo->next = NULL;
 	pass = (ft_lstlast(solo) == solo);
 	if (pass)
 	{
@@ -59,11 +61,14 @@ int	main(void)
 	}
 	printf("[%d] 1 ノードのみ  expect=自分自身  ft=%p (solo=%p)  %s%s%s\n",
 		2, (void *)ft_lstlast(solo), (void *)solo, color, label, reset);
-	free(solo);
 
-	a = ft_lstnew("A");
-	b = ft_lstnew("B");
-	c = ft_lstnew("C");
+	a = &nodes[1];
+	b = &nodes[2];
+	c = &nodes[3];
+	a->content = "A";
+	b->content = "B";
+	c->content = "C";
+	c->next = NULL;
 	a->next = b;
 	b->next = c;
 	pass = (ft_lstlast(a) == c && ft_lstlast(a)->next == NULL);
@@ -81,10 +86,6 @@ int	main(void)
 	}
 	printf("[%d] a→b→c の 3 ノード  expect=c  ft=%p (c=%p)  %s%s%s\n",
 		3, (void *)ft_lstlast(a), (void *)c, color, label, reset);
-
-	free(a);
-	free(b);
-	free(c);
 
 	printf("%s----- summary: %s%d OK%s / %s%d KO%s%s -----%s\n",
 		cyan, green, ok, reset, red, ko, reset, cyan, reset);

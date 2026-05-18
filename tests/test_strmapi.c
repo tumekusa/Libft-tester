@@ -58,8 +58,8 @@ int	main(void)
 		1, r ? r : "(NULL)", color, label, reset);
 	free(r);
 
-	r = ft_strmapi("hello", to_upper_cb);
-	pass = (r != NULL && strcmp(r, "HELLO") == 0);
+	r = ft_strmapi("norminette", to_upper_cb);
+	pass = (r != NULL && strcmp(r, "NORMINETTE") == 0);
 	if (pass)
 	{
 		color = green;
@@ -72,7 +72,7 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] strmapi(\"hello\", to_upper_cb)  expect=\"HELLO\"  ft=\"%s\"  %s%s%s\n",
+	printf("[%d] strmapi(\"norminette\", to_upper_cb)  expect=\"NORMINETTE\"  ft=\"%s\"  %s%s%s\n",
 		2, r ? r : "(NULL)", color, label, reset);
 	free(r);
 

@@ -79,9 +79,10 @@ int	main(void)
 	printf("[%d] strlcat(\"he\", \"llo\", 0)  expect=戻り3+dst=\"he\"  ft戻り=%zu dst=\"%s\"  %s%s%s\n",
 		3, r, dst, color, label, reset);
 
+	memset(dst, 'X', 16);
 	memcpy(dst, "abcde", 5);
 	r = ft_strlcat(dst, "z", 5);
-	pass = (r == 6 && dst[0] == 'a' && dst[4] == 'e');
+	pass = (r == 6 && dst[0] == 'a' && dst[4] == 'e' && dst[5] == 'X');
 	if (pass)
 	{
 		color = green;
@@ -94,8 +95,8 @@ int	main(void)
 		label = "KO";
 		ko++;
 	}
-	printf("[%d] strlcat(dst 非終端, \"z\", 5)  expect=戻り6+dst 不変  ft戻り=%zu dst[4]='%c'  %s%s%s\n",
-		4, r, dst[4], color, label, reset);
+	printf("[%d] strlcat(dst 非終端, \"z\", 5)  expect=戻り6+dst 不変+dst[5]='X'  ft戻り=%zu dst[4]='%c' dst[5]='%c'  %s%s%s\n",
+		4, r, dst[4], dst[5], color, label, reset);
 
 	strcpy(dst, "hello");
 	r = ft_strlcat(dst, "", 16);
